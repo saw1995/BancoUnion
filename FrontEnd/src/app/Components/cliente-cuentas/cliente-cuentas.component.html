@@ -1,0 +1,208 @@
+<div *ngIf="showModalNuevaCuenta">
+    <div class="modal fade" id="modalNuevaCuenta" tabindex="-1">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+
+                <div class="modal-header">
+                    <h4 class="modal-title" id="largeModalLabel">AGREGAR NUEVA CUENTA</h4>
+                </div>
+
+                <div class="modal-body">
+                    <div class="row">
+
+                        <div class="col-12 col-sm-12 col-md-12">
+                            <div class="form-group">
+                                <label><strong>Número de cuenta:</strong></label>
+                                <input type="text" [(ngModel)]="codigoCuenta" #ctrl="ngModel" class="form-control" disabled="" placeholder="Número de cuenta">
+                            </div>
+                        </div>
+
+                        <div class="col-12 col-sm-12 col-md-6">
+                            <div class="form-group">
+                                <label><strong>Sucursal:</strong><span class="text-danger">*</span></label>
+                                <select [(ngModel)]="idSucursalCuenta" #ctrl="ngModel" class="form-control show-tick" (change)="generarCodigoCuenta()">
+                                    <option value="" disabled selected>Seleccione tipo de documento</option>
+                                    <option *ngFor="let sucursal of listaSucursales;" [value]="sucursal.id">{{sucursal.nombre}}</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="col-12 col-sm-12 col-md-6">
+                            <div class="form-group">
+                                <label><strong>Tipo de cuenta:</strong><span class="text-danger">*</span></label>
+                                <select [(ngModel)]="idTipoProductoCuenta" #ctrl="ngModel" class="form-control show-tick" (change)="generarCodigoCuenta()">
+                                    <option value="" disabled selected>Seleccione tipo de documento</option>
+                                    <option *ngFor="let tipo of listaTipoProductos;" [value]="tipo.id">{{tipo.nombre}}</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="col-12 col-sm-12 col-md-6">
+                            <div class="form-group">
+                                <label><strong>Moneda:</strong><span class="text-danger">*</span></label>
+                                <select [(ngModel)]="rangoMoneda" #ctrl="ngModel" class="form-control show-tick" (change)="generarCodigoCuenta()">
+                                    <option value="0" selected>Bolivianos Bs.</option>
+                                    <option value="1">Dolares USD.</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="col-12 col-sm-12 col-md-6">
+                            <div class="form-group">
+                                <label><strong>Saldo/Monto:</strong><span class="text-danger">*</span></label>
+                                <input type="number" [(ngModel)]="saldoMonto" #ctrl="ngModel" class="form-control" placeholder="Ingrese el monto">
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-success" (click)="postAgregarNuevaCuenta()">AGREGAR CUENTA</button>
+                    <button type="button" class="btn btn-danger" data-dismiss="modal" #cerrarModal>CANCELAR</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--Actualizar registro cuenta bancaria-->
+<div *ngIf="showModalActualizar">
+    <div class="modal fade" id="modalActualizarCuenta" tabindex="-1">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+
+                <div class="modal-header">
+                    <h4 class="modal-title" id="largeModalLabel">ACTUALIZAR CUENTA BANCARIA</h4>
+                </div>
+
+                <div class="modal-body">
+                    <div class="row">
+
+                        <div class="col-12 col-sm-12 col-md-12">
+                            <div class="form-group">
+                                <label><strong>Número de cuenta:</strong></label>
+                                <input type="text" [(ngModel)]="oCuentaBancaria.numero_cuenta" #ctrl="ngModel" class="form-control" disabled="" placeholder="Número de cuenta">
+                            </div>
+                        </div>
+
+                        <div class="col-12 col-sm-12 col-md-6">
+                            <div class="form-group">
+                                <label><strong>Sucursal:</strong><span class="text-danger">*</span></label>
+                                <select [(ngModel)]="oCuentaBancaria.id_sucursal" #ctrl="ngModel" class="form-control show-tick">
+                                    <option value="" disabled selected>Seleccione tipo de documento</option>
+                                    <option *ngFor="let sucursal of listaSucursales;" [value]="sucursal.id">{{sucursal.nombre}}</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="col-12 col-sm-12 col-md-6">
+                            <div class="form-group">
+                                <label><strong>Tipo de cuenta:</strong><span class="text-danger">*</span></label>
+                                <select [(ngModel)]="oCuentaBancaria.id_tipo_producto" #ctrl="ngModel" class="form-control show-tick">
+                                    <option value="" disabled selected>Seleccione tipo de documento</option>
+                                    <option *ngFor="let tipo of listaTipoProductos;" [value]="tipo.id">{{tipo.nombre}}</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="col-12 col-sm-12 col-md-6">
+                            <div class="form-group">
+                                <label><strong>Moneda:</strong><span class="text-danger">*</span></label>
+                                <select [(ngModel)]="oCuentaBancaria.moneda" #ctrl="ngModel" class="form-control show-tick" (change)="generarCodigoCuenta()">
+                                    <option value="0" selected>Bolivianos Bs.</option>
+                                    <option value="1">Dolares USD.</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="col-12 col-sm-12 col-md-6">
+                            <div class="form-group">
+                                <label><strong>Saldo/Monto:</strong><span class="text-danger">*</span></label>
+                                <input type="number" [(ngModel)]="oCuentaBancaria.monto" #ctrl="ngModel" class="form-control" placeholder="Ingrese el monto">
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-success" (click)="postActualizarCuentaBancaria()">ACTUALIZAR REGISTRO</button>
+                    <button type="button" class="btn btn-danger" data-dismiss="modal" #cerrarModal>CANCELAR</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--Parte principal-->
+<div class="row">
+    
+    <div class="col-12">
+
+        <h3>Detalle Cliente</h3>
+
+        <label><strong>Nombre(s): </strong> {{ ' ' + objCliente.nombre }}</label>
+
+        <br>
+
+        <label><strong>Apellidos(s): </strong>{{ ' ' + objCliente.apellido_paterno + ' ' + objCliente.apellido_materno }}</label>
+
+        <br>
+
+        <label><strong>{{objCliente.tipo_documento}}: </strong>{{ ' ' + objCliente.numero_documento }}</label>
+     
+        <br>
+
+        <div class="row">
+            <div class="col-6">
+                <h4>Cuentas Bancarias del cliente</h4>
+            </div>
+            <div class="col-6 text-right">
+                <button class="btn btn-success" data-toggle="modal" data-target="#modalNuevaCuenta" (click)="clickModalNuevaCuenta()">Agregar nueva cuenta</button>
+            </div>
+        </div>
+
+        <br>
+
+        <div class="table-responsive">
+            <table class="table table-sm">
+              <thead class="thead-dark">
+                <tr>
+                  <th>#</th>
+                  <th>Sucursal</th>
+                  <th>Tipo</th>
+                  <th>Número de cuenta</th>
+                  <th>Moneda</th>
+                  <th>Saldo</th>
+                  <th>Fecha Creacion</th>
+                  <th>Opciones</th>
+                </tr>
+              </thead>
+                    
+              <tbody>
+                <tr *ngFor="let cuenta of listaCuentas;let indice = index;">
+                  <td>{{ indice + 1 }}</td>
+                  <td>{{ cuenta.sucursal.nombre }}</td>
+                  <td>{{ cuenta.tipo_producto.nombre }}</td>
+                  <td>{{ cuenta.cuenta.numero_cuenta}}</td>
+                  <td>{{ cuenta.cuenta.moneda_nombre }}</td>
+                  <td>{{ cuenta.cuenta.monto | number:"1.2-2" }}</td>
+                  <td>{{ cuenta.cuenta.fecha_creacion | date:'MM/dd/yyyy' }}</td>
+                  <td>
+                    <div class="container text-center">
+                      <button class="btn btn-success m-1 btn-sm" data-toggle="modal" data-target="#modalActualizarCuenta" (click)="clickAbrirModalActualizarCuenta(cuenta.cuenta.id)">Actualizar</button>
+                      <button class="btn btn-danger m-1 btn-sm" (click)="questionEliminarCuenta(cuenta.cuenta.id)">Eliminar</button>
+                    </div>
+                  </td>
+                </tr>
+                
+              </tbody>
+        
+            </table>
+          </div>
+
+
+    </div>
+
+</div>

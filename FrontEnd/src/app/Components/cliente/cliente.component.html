@@ -1,0 +1,60 @@
+
+<div class="row">
+
+  <div class="col-6">
+    <h3>Clientes</h3>
+  </div>
+  <div class="col-6 text-right">
+    <button class="btn btn-success" (click)="clickNavegarHaciaNuevoCliente()">Agregar nuevo Cliente</button>
+  </div>
+
+  <div class="col-12">
+
+    <p>Listado de clientes registrados</p>
+
+    <div class="table-responsive">
+      <table class="table table-sm">
+        <thead class="thead-dark">
+          <tr>
+            <th>#</th>
+            <th>Nombre(s)</th>
+            <th>Apellido(s)</th>
+            <th>Documento</th>
+            <th>Fecha Nacimiento</th>
+            <th>Genero</th>
+            <th>Opciones</th>
+          </tr>
+        </thead>
+              
+        <tbody>
+          <tr *ngFor="let cliente of listaClientes;let indice = index;">
+            <td>{{ cliente.id | number:'3.'}}</td>
+            <td>{{ cliente.nombre }}</td>
+            <td>{{ cliente.apellido_paterno }} {{ cliente.apellido_materno }}</td>
+            <td>
+              <div>
+                <label>{{ cliente.tipo_documento }}: <small>{{ cliente.numero_documento }}</small></label>
+              </div>
+            </td>
+            <td>{{ cliente.fecha_nacimiento | date:'mediumDate' }}</td>
+            <td>{{ cliente.genero }}</td>
+            <td>
+              <div class="container text-center">
+                <button class="btn btn-primary m-1 btn-sm" (click)="clickNavegarHaciaCuentasBancaria(cliente.id)">Cuentas bancarias</button>
+                <button class="btn btn-success m-1 btn-sm" (click)="clickNavegarHaciaActualizarCliente(cliente.id)">Actualizar</button>
+                <button class="btn btn-danger m-1 btn-sm" (click)="questionEliminarCliente(cliente.id)">Eliminar</button>
+              </div>
+            </td>
+          </tr>
+          
+        </tbody>
+  
+      </table>
+    </div>
+
+    
+  </div>
+
+</div>
+
+
